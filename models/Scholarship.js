@@ -5,10 +5,11 @@ const scholarshipSchema = new mongoose.Schema({
     email: String,
     course: String,
     income: Number,
-    status:{
-        type:String,
-        default:"pending"
+    document: String, // filename of uploaded document
+    status: {
+        type: String,
+        default: "pending"
     }
 });
 
-module.exports= mongoose.model('Scholarship', scholarshipSchema);
+module.exports = mongoose.model('Scholarship', scholarshipSchema);
