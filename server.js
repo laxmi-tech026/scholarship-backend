@@ -34,19 +34,14 @@ app.get('/', (req, res) => {
 });
 
 // ── REGISTER ──
-// password min 6 chars, phone exactly 10 digits — validated here
 app.post('/register', async (req, res) => {
     try {
-        const { name, email, password, phone, role } = req.body;
+        const { name, email, password, role } = req.body;
 
         // Validations
         if (!password || password.length < 6) {
             return res.status(400).json({ message: "Password must be at least 6 characters" });
         }
-        if (!phone || !/^\d{10}$/.test(phone)) {
-            return res.status(400).json({ message: "Phone number must be exactly 10 digits" });
-        }
-
         const existing = await User.findOne({ email });
         if (existing) {
             return res.status(400).json({ message: "Email already registered" });
@@ -57,7 +52,6 @@ app.post('/register', async (req, res) => {
             name,
             email,
             password: hashedpassword,
-            phone,
             role: role === 'admin' ? 'admin' : 'user' // only allow admin if explicitly passed
         });
         await user.save();
