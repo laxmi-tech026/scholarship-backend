@@ -6,6 +6,10 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const multer = require('multer');
 const path = require('path');
+const fs = require('fs');
+
+// Create uploads folder if not exists
+if (!fs.existsSync('uploads')) fs.mkdirSync('uploads');
 const User = require('./models/User');
 const Scholarship = require('./models/Scholarship');
 
