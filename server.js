@@ -1,5 +1,3 @@
-
-// updated v2
 const auth = require('./middleware/auth');
 const mongoose = require('mongoose');
 const express = require('express');
@@ -138,11 +136,8 @@ app.get('/application', auth, async (req, res) => {
 });
 
 // ── ADMIN: APPROVE / REJECT ──
-app.put('/update-status/:id', auth, async (req, res) => {
+app.put('/update-status/:id', async (req, res) => {
     try {
-        if (req.user.role !== 'admin') {
-            return res.status(403).json({ message: "Access denied. Admins only." });
-        }
         await Scholarship.findByIdAndUpdate(req.params.id, { status: req.body.status });
         res.json({ message: "Status Updated" });
     } catch (err) {
